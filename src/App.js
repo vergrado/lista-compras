@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Title from "./componentes/Title";
+import ItemForm from "./componentes/ItemForm";
+import ItemList from "./componentes/ItemList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    // Forma correcta de usar refs
+    this.itemListRef = React.createRef();
+  }
+
+  render() {
+    return (
+      <div>
+        <Title />
+
+        {/* Enviamos el método correctamente */}
+        <ItemForm addItem={(item) => this.itemListRef.current.addItem(item)} />
+
+        {/* Nombre correcto del componente + ref moderno */}
+        <ItemList ref={this.itemListRef} />
+      </div>
+    );
+  }
 }
 
 export default App;
