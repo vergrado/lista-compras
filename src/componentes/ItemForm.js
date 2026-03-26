@@ -1,54 +1,49 @@
-// Importa React y herramientas necesarias
-import React, { Component, useState } from "react"; 
-// Component no se usa aquí (es para clases), useState sí (hook para estado)
+// Importa React y useState (hook para manejar estado)
+import React, { useState } from "react";
 
-// Componente funcional que recibe la prop addItem desde el padre
+// Componente funcional que recibe la prop addItem
 function ItemForm({ addItem }) {
 
-  // Hook de estado: 
-  // "item" guarda el valor del input
-  // "setItem" permite actualizar ese valor
+  // Estado para guardar lo que escribe el usuario
   const [item, setItem] = useState('');
 
   // Función que se ejecuta al enviar el formulario
   const handleSubmit = (e) => {
 
-    // Evita que la página se recargue al enviar el formulario
+    // Evita que la página se recargue
     e.preventDefault();
 
-    // Validación: si el input está vacío, no hace nada
+    // Validación: evita agregar texto vacío
     if (item.trim() === '') return;
 
-    // Llama a la función que viene del padre (props)
-    // y le envía el nuevo artículo
+    // Llama a la función del padre (App)
     addItem(item);
 
-    // Limpia el campo de texto después de agregar el artículo
+    // Limpia el input
     setItem('');
   };
 
-  // JSX: estructura visual del componente
   return (
 
-    // Formulario que ejecuta handleSubmit al enviarse
+    // Evento onSubmit del formulario
     <form onSubmit={handleSubmit}>
 
-      {/* Campo de texto */}
+      {/* Input controlado */}
       <input
-        type="text" // tipo texto
-        value={item} // valor controlado por el state
+        type="text"
+        value={item} // valor viene del estado
         onChange={(e) => setItem(e.target.value)} 
-        // cada vez que el usuario escribe, actualiza el state
+        // actualiza el estado cada vez que se escribe
 
-        placeholder="Añadir artículo" // texto de ayuda
+        placeholder="Añadir artículo"
       />
 
-      {/* Botón para enviar el formulario */}
+      {/* Botón para enviar */}
       <button type="submit">Agregar</button>
 
     </form>
   );
 }
 
-// Exporta el componente para poder usarlo en otros archivos (como App.js)
+// Exporta el componente
 export default ItemForm;
